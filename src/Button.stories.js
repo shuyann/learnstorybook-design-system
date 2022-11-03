@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+import { useEvent, within } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
+
 import { Button } from "./Button";
 import { Icon } from "./Icon";
 import { StoryLinkWrapper } from "./StoryLinkWrapper";
+import userEvent from "@testing-library/user-event";
 
 const CustomButton = styled.button`
   border: 1px solid green;
@@ -323,3 +327,20 @@ export const AnchorWrapper = (args) => (
 );
 
 AnchorWrapper.storyName = "anchor wrapper";
+
+export const WithInteractions = (args) => <Button {...args} />;
+WithInteractions.args = {
+  appearance: "primary",
+  href: "http://storybook.js.org",
+  ButtonWrapper: StoryLinkWrapper,
+  children: "Button",
+};
+
+WithInteractions.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByRole("link"));
+  expect(canvas.getByRole("link")).toHaveAttribute(
+    "href",
+    "http://storybook.js.org"
+  );
+};
