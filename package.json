@@ -64,5 +64,7 @@
     "@storybook/testing-library": "^0.0.13",
     "chromatic": "^6.11.4",
     "prettier": "^2.7.1"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "learnstorybook-design-system-template@0.1.0"
 }
